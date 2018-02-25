@@ -37,5 +37,4 @@ apt-get -o Acquire::ForceIPv4=true install -y docker
 systemctl enable docker
 systemctl start docker
 
-echo All finished! Rebooting...
-(sleep 5; reboot) &
+echo All finished!
