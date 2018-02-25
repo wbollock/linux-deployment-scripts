@@ -3,9 +3,9 @@
 #<UDF name="pubkey" Label="SSH pubkey (installed for root and sudo user)?" example="ssh-rsa ..." />
 
 # initial needfuls
-apt-get -o Acquire::ForceIPv4=true update
+apt-get update
 # console-setup = derp
-DEBIAN_FRONTEND=noninteractive apt-get -o Acquire::ForceIPv4=true -y upgrade
+DEBIAN_FRONTEND=noninteractive apt-get -y upgrade
 
 # set up ssh pubkey
 echo Setting up ssh pubkey...
@@ -24,7 +24,7 @@ echo ...done
 
 #set up fail2ban
 echo Setting up fail2ban...
-apt-get -o Acquire::ForceIPv4=true install -y fail2ban
+apt-get install -y fail2ban
 cd /etc/fail2ban
 cp fail2ban.conf fail2ban.local
 cp jail.conf jail.local
@@ -33,7 +33,11 @@ systemctl start fail2ban
 echo ...done
 
 # Install Docker
-apt-get -o Acquire::ForceIPv4=true install -y docker
+apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+apt-get update
+apt-get install -y docker-ce
 systemctl enable docker
 systemctl start docker
 
