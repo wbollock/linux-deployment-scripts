@@ -19,9 +19,7 @@ echo ...done
 
 # Initial needfuls
 yum update -y
-yum upgrade -y
 yum install -y epel-release
-yum upgrade -y
 
 #remove unneeded services
 echo Removing unneeded services...
