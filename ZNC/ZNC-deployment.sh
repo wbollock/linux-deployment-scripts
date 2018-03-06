@@ -75,9 +75,10 @@ systemctl enable znc
 # done install ZNC
 # set up clientbuffer module
 cd /root/
-# curl -o clientbuffer.cpp https://raw.githubusercontent.com/jpnurmi/znc-clientbuffer/master/clientbuffer.cpp
-# this clientbuffer fork fixes the duplicate query message issue
-curl -o clientbuffer.cpp https://raw.githubusercontent.com/blole/znc-clientbuffer/master/clientbuffer.cpp
+# # this clientbuffer fork originally fixed the duplicate query message issue, but is no longer available:
+# # curl -o clientbuffer.cpp https://raw.githubusercontent.com/blole/znc-clientbuffer/master/clientbuffer.cpp
+# this is now the official plugin repo:
+curl -o clientbuffer.cpp -L https://raw.githubusercontent.com/CyberShadow/znc-clientbuffer/master/clientbuffer.cpp
 yum install -y gcc-c++ redhat-rpm-config
 /bin/znc-buildmod clientbuffer.cpp
 mv clientbuffer.so /usr/lib64/znc/
