@@ -46,9 +46,8 @@ echo ...done
 
 # Initial needfuls
 yum update -y
-yum upgrade -y
 yum install -y epel-release
-yum upgrade -y
+yum update -y
 
 # Set up automatic  updates
 echo Setting up automatic updates...
