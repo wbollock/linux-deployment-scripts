@@ -23,7 +23,7 @@ echo ...done
 yum update -y
 yum install -y epel-release
 
-#remove unneeded services
+# remove unneeded services
 echo Removing unneeded services...
 yum remove -y avahi chrony
 echo ...done
@@ -35,7 +35,7 @@ sed -i -e "s/apply_updates = no/apply_updates = yes/" /etc/yum/yum-cron.conf
 echo ...done
 # auto-updates complete
 
-#set up fail2ban
+# set up fail2ban
 echo Setting up fail2ban...
 yum install -y fail2ban
 cd /etc/fail2ban
@@ -63,7 +63,18 @@ yum install -y docker-ce
 systemctl enable docker
 systemctl start docker
 
+# just docker-compose things
+curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose \
+    && chmod +x /usr/local/bin/docker-compose
+
 # I hope this goes whale
-docker run --restart unless-stopped $PARAMS $IMAGE
+if   [[ "$method" == "docker-run" ]]; then
+    docker run --restart unless-stopped $PARAMS $IMAGE
+elif [[ "$method" == "docker-compose" ]]; then
+    curl -o docker-compose.yml -L $IMAGE
+    docker-compose up
+else
+    echo "method was not one of 'docker-run' or 'docker-compose'. I don't know what to do. Stopping."
+fi
 
 echo All finished!
