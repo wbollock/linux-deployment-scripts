@@ -2,7 +2,7 @@
 
 #<UDF name="pubkey" Label="SSH pubkey (installed for root and sudo user)?" example="ssh-rsa ..." />
 #<UDF name="image"  Label="Docker image to launch?" example="mb101/docker-spigot" />
-#<UDF name="params" Label="Extra params to 'docker run'?" example="-e 'JVM_OPTS=-Xmx4096M' -itd -p 25565:25565" />
+#<UDF name="params" Label="Extra params to 'docker run'?"/>
 
 # set up ssh pubkey
 echo Setting up ssh pubkey...
