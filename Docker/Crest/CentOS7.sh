@@ -4,6 +4,10 @@
 #<UDF name="image"  Label="Docker image to launch?" example="mb101/docker-spigot" />
 #<UDF name="params" Label="Extra params to 'docker run'?"/>
 
+if [[ ! $pubkey ]]; then read -p "SSH pubkey (installed for root and sudo user)?" pubkey; fi
+if [[ ! $image ]]; then read -p "Docker image to launch?" image; fi
+if [[ ! $params ]]; then read -p "Extra params to 'docker run'?" params; fi
+
 # set up ssh pubkey
 echo Setting up ssh pubkey...
 mkdir -p /root/.ssh
