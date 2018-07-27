@@ -1,8 +1,10 @@
 #!/bin/bash
 
 #<UDF name="pubkey" Label="SSH pubkey (installed for root and sudo user)?" example="ssh-rsa ..." />
-#<UDF name="image"  Label="Docker image to launch?" example="mb101/docker-spigot" />
+#<UDF name="method" Label="Launch method?" oneOf="docker-run,docker-compose" default="docker-run" />
+#<UDF name="image"  Label="Docker thing to launch?" example="Image name for docker run (i.e. mb101/docker-spigot) or full URL to docker-compose.yml for docker-compose" />
 #<UDF name="params" Label="Extra params to 'docker run'?"/>
+#<UDF name="skip" Label="Skip updates and server hardening?" example="Not recommended for production deployments" oneOf="no,yes" default="no" />
 
 if [[ ! $pubkey ]]; then read -p "SSH pubkey (installed for root and sudo user)?" pubkey; fi
 if [[ ! $image ]]; then read -p "Docker image to launch?" image; fi
