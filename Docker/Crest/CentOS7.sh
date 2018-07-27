@@ -14,7 +14,7 @@ echo pubkey = $pubkey
 echo method = $method
 echo image  = $image
 echo params = $params
-echo skip.  = $skip
+echo skip   = $skip
 
 exit
 
