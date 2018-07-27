@@ -6,15 +6,15 @@
 #<UDF name="params" Label="Extra params to 'docker run'?"/>
 #<UDF name="skip" Label="Skip updates and server hardening?" example="Not recommended for production deployments" oneOf="no,yes" default="no" />
 
-if [[ ! $pubkey ]]; then read -p "SSH pubkey (installed for root and sudo user)?" pubkey; fi
-if [[ ! $image ]]; then read -p "Docker image to launch?" image; fi
-if [[ ! $params ]]; then read -p "Extra params to 'docker run'?" params; fi
+if [[ ! $PUBKEY ]]; then read -p "SSH pubkey (installed for root and sudo user)?" PUBKEY; fi
+if [[ ! $IMAGE ]]; then read -p "Docker image to launch?" IMAGE; fi
+if [[ ! $PARAMS ]]; then read -p "Extra params to 'docker run'?" PARAMS; fi
 
-echo pubkey = $pubkey
-echo method = $method
-echo image  = $image
-echo params = $params
-echo skip   = $skip
+echo pubkey = $PUBKEY
+echo method = $METHOD
+echo image  = $IMAGE
+echo params = $PARAMS
+echo skip   = $SKIP
 
 exit
 
