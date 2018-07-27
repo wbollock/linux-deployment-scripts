@@ -10,6 +10,14 @@ if [[ ! $pubkey ]]; then read -p "SSH pubkey (installed for root and sudo user)?
 if [[ ! $image ]]; then read -p "Docker image to launch?" image; fi
 if [[ ! $params ]]; then read -p "Extra params to 'docker run'?" params; fi
 
+echo pubkey = $pubkey
+echo method = $method
+echo image  = $image
+echo params = $params
+echo skip.  = $skip
+
+exit
+
 # set up ssh pubkey
 echo Setting up ssh pubkey...
 mkdir -p /root/.ssh
