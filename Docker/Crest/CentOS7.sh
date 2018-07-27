@@ -95,19 +95,19 @@ install_docker() {
 }
 
 fetch_and_kickstart() {
-# just docker-compose things
-curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose \
-    && chmod +x /usr/local/bin/docker-compose
+  # just docker-compose things
+  curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose \
+      && chmod +x /usr/local/bin/docker-compose
 
-# I hope this goes whale
-if   [[ "$method" == "docker-run" ]]; then
-    docker run --restart unless-stopped $PARAMS $IMAGE
-elif [[ "$method" == "docker-compose" ]]; then
-    curl -o docker-compose.yml -L $IMAGE
-    docker-compose up
-else
-    echo "method was not one of 'docker-run' or 'docker-compose'. I don't know what to do. Stopping."
-fi
+  # I hope this goes whale
+  if   [[ "$method" == "docker-run" ]]; then
+      docker run --restart unless-stopped $PARAMS $IMAGE
+  elif [[ "$method" == "docker-compose" ]]; then
+      curl -o docker-compose.yml -L $IMAGE
+      docker-compose up
+  else
+      echo "method was not one of 'docker-run' or 'docker-compose'. I don't know what to do. Stopping."
+  fi
 }
 
 main() {
