@@ -1,13 +1,29 @@
 # Crest
 
-Just some Docker things.
+Deploy Docker container(s)
 
-Currently works with `docker run $thing`, but needs to be made to work with `docker-compose` things too. 
+Works with both `docker run $thing` and `docker-compose up`, and should work with almost anything else you throw at it. 
 
-### What can be specified for $image?
+Also performs basic server hardening steps:
 
-If you specify an image for `docker run` that is not currently on your system, it will be retrieved automatically using `docker pull`. Based on this behavior, `docker run` will accept images that follow the same naming convention as `docker pull`. See [docs.docker.com/engine/reference/commandline/pull/](https://docs.docker.com/engine/reference/commandline/pull/) for more detailed information.
+- Updates all packages
+- Installs an SSH public key
+- Disables password authentication
+- Disables root account logins
+- Configures automatic updates
+- Installs and configures fail2ban
+- Configures NTP
 
-### What parameters can I supply?
+### How are remote resources used?
 
-Currently, this calls `docker run $thing`, so you can specify any valid parameters to the `docker run` command. See [docs.docker.com/engine/reference/commandline/run/](https://docs.docker.com/engine/reference/commandline/run/) and [docs.docker.com/engine/reference/run/](https://docs.docker.com/engine/reference/run/) for more information and examples.
+You can specify a remote URL to pull in just before Docker is started. This should be a full URL to a `Dockerfile`, `docker-compose.yml`, or if you're more creative, something else entirely.
+
+The resource is fetched using `wget $thing`, which is installed only if a resource is specified. 
+
+### What command can I use?
+
+Use can suppply any command, which is run as provided. This allows you to run `docker run` with your own parameters, `docker-compose up`, or anything else.
+
+### Can I run this standalone / unattended / as part of something else?
+
+Yes. This script contains `read` statements to prompt you for anything not already set in the environment. The only thing not prompted is `$RESOURCE`, because it's optional. If you want to specify `$RESOURCE`, set it in the environment or declare it on the command line and it will be used. 
