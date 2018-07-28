@@ -1,22 +1,14 @@
 #!/bin/bash
 
-#<UDF name="pubkey" Label="SSH pubkey (installed for root and sudo user)?" example="ssh-rsa ..." />
-#<UDF name="method" Label="Launch method?" oneOf="docker-run,docker-compose" default="docker-run" />
-#<UDF name="image"  Label="Docker thing to launch?" example="Image name for docker run (i.e. mb101/docker-spigot) or full URL to docker-compose.yml for docker-compose" />
-#<UDF name="params" Label="Extra params to 'docker run'?"/>
-#<UDF name="skip" Label="Skip updates and server hardening?" example="Not recommended for production deployments" oneOf="no,yes" default="no" />
+#<UDF name="PUBKEY" Label="SSH pubkey (installed for root and sudo user)?" example="ssh-rsa ..." />
+#<UDF name="RESOURCE"  Label="Resource to download?" example="URL to Dockerfile or docker-compose.yml" default="" />
+#<UDF name="RUNCMD" Label="Command to run?" example="docker run --name spigot --restart unless-stopped -e JVM_OPTS=-Xmx4096M -p 25565:25565 -itd mb101/docker-spigot" />
+#<UDF name="SKIP" Label="Skip updates and server hardening?" example="Not recommended for production deployments" oneOf="no,yes" default="no" />
 
 if [[ ! $PUBKEY ]]; then read -p "SSH pubkey (installed for root and sudo user)?" PUBKEY; fi
-if [[ ! $IMAGE ]]; then read -p "Docker image to launch?" IMAGE; fi
-if [[ ! $PARAMS ]]; then read -p "Extra params to 'docker run'?" PARAMS; fi
-
-echo pubkey = $PUBKEY
-echo method = $METHOD
-echo image  = $IMAGE
-echo params = $PARAMS
-echo skip   = $SKIP
-
-exit
+if [[ ! $RESOURCE ]]; then read -p "Resource to download?" RESOURCE; fi
+if [[ ! $RUNCMD ]]; then read -p "Command to run?" RUNCMD; fi
+if [[ ! $SKIP ]]; then read -p "Skip updates and server hardening?" SKIP; fi
 
 install_pubkey() {
   # set up ssh pubkey
@@ -94,20 +86,18 @@ install_docker() {
   systemctl start docker
 }
 
-fetch_and_kickstart() {
+fetch_and_exec() {
+
   # just docker-compose things
   curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose \
       && chmod +x /usr/local/bin/docker-compose
 
-  # I hope this goes whale
-  if   [[ "$method" == "docker-run" ]]; then
-      docker run --restart unless-stopped $PARAMS $IMAGE
-  elif [[ "$method" == "docker-compose" ]]; then
-      curl -o docker-compose.yml -L $IMAGE
-      docker-compose up
-  else
-      echo "method was not one of 'docker-run' or 'docker-compose'. I don't know what to do. Stopping."
+  if [[ "$RESOURCE" != "" ]]; then
+    yum install -y wget
+    wget $RESOURCE
   fi
+  
+  exec $RUNCMD
 }
 
 main() {
@@ -122,7 +112,7 @@ main() {
   fi
   clean_docker
   install_docker
-  fetch_and_kickstart
+  fetch_and_exec
 }
 
 main
