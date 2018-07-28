@@ -6,7 +6,6 @@
 #<UDF name="SKIP" Label="Skip updates and server hardening?" example="Not recommended for production deployments" oneOf="no,yes" default="no" />
 
 if [[ ! $PUBKEY ]]; then read -p "SSH pubkey (installed for root and sudo user)?" PUBKEY; fi
-if [[ ! $RESOURCE ]]; then read -p "Resource to download?" RESOURCE; fi
 if [[ ! $RUNCMD ]]; then read -p "Command to run?" RUNCMD; fi
 if [[ ! $SKIP ]]; then read -p "Skip updates and server hardening?" SKIP; fi
 
