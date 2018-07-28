@@ -20,10 +20,10 @@ You can specify a remote URL to pull in just before Docker is started. This shou
 
 The resource is fetched using `wget $thing`, which is installed only if a resource is specified. 
 
-### What command can I use?
+### What commands can be used?
 
 Use can suppply any command, which is run as provided. This allows you to run `docker run` with your own parameters, `docker-compose up`, or anything else.
 
-### Can I run this standalone / unattended / as part of something else?
+### Can this be run this standalone / unattended / as part of something else?
 
-Yes. This script contains `read` statements to prompt you for anything not already set in the environment. The only thing not prompted is `$RESOURCE`, because it's optional. If you want to specify `$RESOURCE`, set it in the environment or declare it on the command line and it will be used. 
+This script contains `read` statements to prompt you for anything not already set in the environment. The only thing not prompted is `$RESOURCE`, because it's optional. If you want to specify `$RESOURCE`, set it in the environment or declare it on the command line and it will be used. 
