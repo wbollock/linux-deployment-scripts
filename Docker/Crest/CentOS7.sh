@@ -59,6 +59,7 @@ configure_fail2ban() {
   sed -i -e "s/backend = auto/backend = systemd/" /etc/fail2ban/jail.local
   systemctl enable fail2ban
   systemctl start fail2ban
+  cd /
   echo ...done
 }
 
@@ -86,7 +87,6 @@ install_docker() {
 }
 
 fetch_and_exec() {
-
   # just docker-compose things
   curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose \
       && chmod +x /usr/local/bin/docker-compose
