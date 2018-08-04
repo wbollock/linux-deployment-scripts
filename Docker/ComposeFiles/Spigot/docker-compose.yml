@@ -1,0 +1,15 @@
+version: '3.3'
+services:
+  spigot:
+    image: mb101/docker-spigot
+    environment:
+      - EULA=true
+      - JVM_OPTS=-Xmx4096M
+    ports:
+      - "25565:25565"
+    restart: always
+    volumes:
+      - minecraft:/minecraft/
+
+volumes:
+  minecraft:
