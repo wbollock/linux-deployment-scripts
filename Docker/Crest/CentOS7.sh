@@ -79,7 +79,7 @@ clean_docker() {
 
 install_docker() {
   # Install Docker
-  yum install -y yum-utils device-mapper-persistent-data lvm2
+  yum install -y yum-utils device-mapper-persistent-data lvm2 wget
   yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
   yum install -y docker-ce
   systemctl enable docker
@@ -92,7 +92,6 @@ fetch_and_exec() {
       && chmod +x /usr/local/bin/docker-compose
 
   if [[ "$RESOURCE" != "" ]]; then
-    yum install -y wget
     wget $RESOURCE
   fi
   
