@@ -3,7 +3,7 @@
 # based on https://github.com/kylemanna/docker-openvpn
 
 # write out the docker-compose file
-cat >> docker-compose.yml <<__EOF__
+cat > docker-compose.yml <<__EOF__
 version: '2'
 services:
   openvpn:
