@@ -23,15 +23,14 @@ services:
     - EASYRSA_REQ_ORG=dd
     - EASYRSA_REQ_EMAIL=ee
     - EASYRSA_REQ_OU=ff
-    - EASYRSA_REQ_CN=gg
+    - EASYRSA_REQ_CN=vpn.jawns.io
     - EASYRSA_DN=org
     - EASYRSA_BATCH=y
     - CLIENTNAME="test-user"
-    - HOSTNAME=vpn.jawns.io
 __EOF__
 
 # Generate the OpenVPN server config
-docker-compose run --rm openvpn ovpn_genconfig -u udp://$HOSTNAME
+docker-compose run --rm openvpn ovpn_genconfig -u udp://$EASYRSA_REQ_CN
 
 # Init OpenVPN PKI, skip prompting for password
 docker-compose run --rm openvpn ovpn_initpki nopass
