@@ -95,7 +95,7 @@ fetch_and_exec() {
     wget $RESOURCE
   fi
   
-  exec $RUNCMD
+  $RUNCMD
 }
 
 main() {
