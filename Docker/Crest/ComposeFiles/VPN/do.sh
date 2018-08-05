@@ -17,20 +17,20 @@ services:
     volumes:
     - ./openvpn-data/conf:/etc/openvpn
     environment:
-    - EASYRSA_REQ_COUNTRY=aa
-    - EASYRSA_REQ_PROVINCE=bb
-    - EASYRSA_REQ_CITY=cc
-    - EASYRSA_REQ_ORG=dd
-    - EASYRSA_REQ_EMAIL=ee
-    - EASYRSA_REQ_OU=ff
-    - EASYRSA_REQ_CN=vpn.jawns.io
+    - EASYRSA_REQ_COUNTRY=$COUNTRY
+    - EASYRSA_REQ_PROVINCE=$PROVINCE
+    - EASYRSA_REQ_CITY=$CITY
+    - EASYRSA_REQ_ORG=$ORG
+    - EASYRSA_REQ_EMAIL=$EMAIL
+    - EASYRSA_REQ_OU=$OU
+    - EASYRSA_REQ_CN=$CN
     - EASYRSA_DN=org
     - EASYRSA_BATCH=y
-    - CLIENTNAME="test-user"
+    - CLIENTNAME=$CLIENTNAME
 __EOF__
 
 # Generate the OpenVPN server config
-docker-compose run --rm openvpn ovpn_genconfig -u udp://$EASYRSA_REQ_CN
+docker-compose run --rm openvpn ovpn_genconfig -u udp://$CN
 
 # Init OpenVPN PKI, skip prompting for password
 docker-compose run --rm openvpn ovpn_initpki nopass
@@ -45,6 +45,6 @@ docker-compose run --rm openvpn easyrsa build-client-full $CLIENTNAME nopass
 docker-compose run --rm openvpn ovpn_getclient $CLIENTNAME > $CLIENTNAME.ovpn
 
 # cat the client config file if desired
-# cat $CLIENTNAME.ovpn
+cat $CLIENTNAME.ovpn
 
 # All done.
