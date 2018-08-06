@@ -79,7 +79,7 @@ clean_docker() {
 
 install_docker() {
   # Install Docker
-  yum install -y yum-utils device-mapper-persistent-data lvm2 wget
+  yum install -y yum-utils device-mapper-persistent-data lvm2
   yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
   yum install -y docker-ce
   systemctl enable docker
@@ -92,9 +92,14 @@ fetch_and_exec() {
       && chmod +x /usr/local/bin/docker-compose
 
   if [[ "$RESOURCE" != "" ]]; then
+    yum install -y wget
     wget $RESOURCE
   fi
-  
+  # needfuls done
+  echo "=== Docker install complete ==="
+  echo -n "Sleeping for 2 seconds before moving on... "
+  sleep 2
+  echo "ship it!"
   $RUNCMD
 }
 
@@ -107,6 +112,10 @@ main() {
     configure_yum_cron
     configure_fail2ban
     configure_ntp
+    echo "=== Server hardening complete ==="
+    echo -n "Waiting for 2 seconds before starting Docker things... "
+    sleep 2
+    echo "here we go!"
   fi
   clean_docker
   install_docker
