@@ -104,8 +104,9 @@ fetch_and_exec() {
 }
 
 main() {
+  # Always install pubkey, and do it early
+  install_pubkey
   if [[ "$SKIP" = "no" ]]; then
-    install_pubkey
     disable_PasswordAuthentication
     do_yum_update
     remove_unneeded
