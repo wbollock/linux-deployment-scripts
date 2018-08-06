@@ -89,11 +89,13 @@ install_docker() {
   systemctl start docker
 }
 
-fetch_and_exec() {
-  # just docker-compose things
-  curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose \
-      && chmod +x /usr/local/bin/docker-compose
+install_compose() {
+  yum install -y python-pip
+  pip install -U pip
+  pip install docker-compose
+}
 
+fetch_and_exec() {
   if [[ "$RESOURCE" != "" ]]; then
     yum install -y wget
     wget $RESOURCE
@@ -125,6 +127,7 @@ main() {
   fi
   clean_docker
   install_docker
+  install_compose
   fetch_and_exec
 }
 
