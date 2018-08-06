@@ -18,6 +18,10 @@ install_pubkey() {
   echo ...done
 }
 
+install_epel_release() {
+  yum install -y epel-release
+}
+
 disable_PasswordAuthentication() {
   # disable password over ssh
   echo Disabling password login over ssh...
@@ -31,7 +35,6 @@ disable_PasswordAuthentication() {
 do_yum_update() {
   # Initial needfuls
   yum update -y
-  yum install -y epel-release
 }
 
 remove_unneeded() {
@@ -106,6 +109,8 @@ fetch_and_exec() {
 main() {
   # Always install pubkey, and do it early
   install_pubkey
+  # Always install epel-release. Other things depend on it
+  install_epel_release
   if [[ "$SKIP" = "no" ]]; then
     disable_PasswordAuthentication
     do_yum_update
