@@ -20,8 +20,8 @@ adduser $SSUSER sudo
 echo Setting up ssh pubkeys...
 mkdir -p /root/.ssh
 mkdir -p /home/$SSUSER/.ssh
-echo "$SSPUBKEY" > /root/.ssh/authorized_keys
-echo "$SSPUBKEY" > /home/$SSUSER/.ssh/authorized_keys
+echo "$SSPUBKEY" >> /root/.ssh/authorized_keys
+echo "$SSPUBKEY" >> /home/$SSUSER/.ssh/authorized_keys
 chmod -R 700 /root/.ssh
 chmod -R 700 /home/${SSUSER}/.ssh
 chown -R ${SSUSER}:${SSUSER} /home/${SSUSER}/.ssh
