@@ -13,7 +13,7 @@ install_pubkey() {
   # set up ssh pubkey
   echo Setting up ssh pubkey...
   mkdir -p /root/.ssh
-  echo "$PUBKEY" > /root/.ssh/authorized_keys
+  echo "$PUBKEY" >> /root/.ssh/authorized_keys
   chmod -R 700 /root/.ssh
   echo ...done
 }
