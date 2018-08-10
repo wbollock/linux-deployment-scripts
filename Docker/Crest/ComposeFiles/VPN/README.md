@@ -9,6 +9,12 @@ This works, it's just a bit more complicated than a single `docker-compose.yml` 
 - creates a configuration file for the `$CLIENTNAME` user (currently `test-user`)
 - writes that config file out
 
-None of these certs are protected with passwords, so this is only intended as a proof-of-concept. However, has been tested as is working. After `do.sh` completes, you can find the configuration file named `test-user.ovpn`.
+None of these certs are protected with passwords, so this is only intended as a proof-of-concept. However, this has been tested as does work. 
+
+After `do.sh` completes, you can find the configuration file named `/${CLIENTNAME}.ovpn`. By default, `$CLIENTNAME` is `test-user`. You will need to copy this config file from the OpenVPN server to your client machine and load it into your OpenVPN client software. You can copy this file to your system using `scp`. Here's an example command:
+
+```
+scp root@$IP:/test-user.ovpn .
+```
 
 This has been tested with the Mac client [Tunnelblick](https://tunnelblick.net/)
