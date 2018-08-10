@@ -46,5 +46,7 @@ docker-compose run --rm openvpn ovpn_getclient $CLIENTNAME > $CLIENTNAME.ovpn
 
 # cat the client config file if desired
 # cat $CLIENTNAME.ovpn
+echo Client config file is located at /${CLIENTNAME}.ovpn
+echo Copy this file to your local system and load it into your OpenVPN client.
 
 # All done.
