@@ -45,6 +45,6 @@ docker-compose run --rm openvpn easyrsa build-client-full $CLIENTNAME nopass
 docker-compose run --rm openvpn ovpn_getclient $CLIENTNAME > $CLIENTNAME.ovpn
 
 # cat the client config file if desired
-cat $CLIENTNAME.ovpn
+# cat $CLIENTNAME.ovpn
 
 # All done.
