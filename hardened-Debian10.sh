@@ -54,5 +54,7 @@ ufw allow ssh
 systemctl enable ufw
 systemctl start ufw
 
+ufw enable
+
 echo All finished! Rebooting...
 (sleep 5; reboot) &
